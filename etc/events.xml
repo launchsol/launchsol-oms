@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--
+        checkout_submit_all_after fires exactly once per successfully placed
+        order (dispatched from Magento\Quote\Model\QuoteManagement::submit),
+        unlike sales_order_save_after which fires on every save (status
+        changes, invoicing, shipping, admin edits, ...). That's the signal
+        we actually want: "a new order was just placed".
+    -->
+    <event name="checkout_submit_all_after">
+        <observer name="launchoms_orderpush_push_order" instance="LaunchOms\OrderPush\Observer\PushOrderObserver"/>
+    </event>
+</config>
