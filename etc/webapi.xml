@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <!--
         All three routes are `anonymous` because the caller is LaunchOMS,
         not a Magento admin/customer, so Magento's own OAuth/token auth
@@ -25,4 +25,4 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
-</config>
+</routes>
