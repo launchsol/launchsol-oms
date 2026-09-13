@@ -6,7 +6,7 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="LaunchOms_OrderPush::config" title="LaunchOMS Order Push Section"/>
+                            <resource id="Launchsol_LaunchOMS::config" title="LaunchOMS Order Push Section"/>
                         </resource>
                     </resource>
                 </resource>

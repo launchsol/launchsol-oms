@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Observer;
+namespace Launchsol\LaunchOMS\Observer;
 
-use LaunchOms\OrderPush\Model\Config;
+use Launchsol\LaunchOMS\Model\Config;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\HTTP\Client\Curl;

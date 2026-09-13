@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Model;
+namespace Launchsol\LaunchOMS\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;

@@ -9,6 +9,6 @@
         Config", no separate button/controller/ACL entry needed.
     -->
     <event name="admin_system_config_changed_section_launchoms_order_push">
-        <observer name="launchoms_orderpush_connect" instance="LaunchOms\OrderPush\Observer\ConnectObserver"/>
+        <observer name="launchoms_orderpush_connect" instance="Launchsol\LaunchOMS\Observer\ConnectObserver"/>
     </event>
 </config>

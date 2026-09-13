@@ -2,32 +2,32 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- Dedicated log file (var/log/launchoms_order_push.log) so pushes are
          easy to find/tail without wading through the general system.log. -->
-    <virtualType name="LaunchOms\OrderPush\Logger\Logger" type="Magento\Framework\Logger\Monolog">
+    <virtualType name="Launchsol\LaunchOMS\Logger\Logger" type="Magento\Framework\Logger\Monolog">
         <arguments>
             <argument name="name" xsi:type="string">launchoms_order_push</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="system" xsi:type="object">LaunchOms\OrderPush\Logger\Handler</item>
+                <item name="system" xsi:type="object">Launchsol\LaunchOMS\Logger\Handler</item>
             </argument>
         </arguments>
     </virtualType>
-    <type name="LaunchOms\OrderPush\Observer\PushOrderObserver">
+    <type name="Launchsol\LaunchOMS\Observer\PushOrderObserver">
         <arguments>
-            <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">Launchsol\LaunchOMS\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="LaunchOms\OrderPush\Observer\ConnectObserver">
+    <type name="Launchsol\LaunchOMS\Observer\ConnectObserver">
         <arguments>
-            <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">Launchsol\LaunchOMS\Logger\Logger</argument>
         </arguments>
     </type>
-    <type name="LaunchOms\OrderPush\Model\LaunchOmsApi">
+    <type name="Launchsol\LaunchOMS\Model\LaunchOmsApi">
         <arguments>
-            <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
+            <argument name="logger" xsi:type="object">Launchsol\LaunchOMS\Logger\Logger</argument>
         </arguments>
     </type>
 
     <!-- Pairing/store-picker API (etc/webapi.xml), see Api/LaunchOmsInterface.php. -->
-    <preference for="LaunchOms\OrderPush\Api\LaunchOmsInterface" type="LaunchOms\OrderPush\Model\LaunchOmsApi"/>
-    <preference for="LaunchOms\OrderPush\Api\Data\StoreViewInterface" type="LaunchOms\OrderPush\Model\Data\StoreView"/>
-    <preference for="LaunchOms\OrderPush\Api\Data\ChannelMapEntryInterface" type="LaunchOms\OrderPush\Model\Data\ChannelMapEntry"/>
+    <preference for="Launchsol\LaunchOMS\Api\LaunchOmsInterface" type="Launchsol\LaunchOMS\Model\LaunchOmsApi"/>
+    <preference for="Launchsol\LaunchOMS\Api\Data\StoreViewInterface" type="Launchsol\LaunchOMS\Model\Data\StoreView"/>
+    <preference for="Launchsol\LaunchOMS\Api\Data\ChannelMapEntryInterface" type="Launchsol\LaunchOMS\Model\Data\ChannelMapEntry"/>
 </config>

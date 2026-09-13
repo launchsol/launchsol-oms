@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Observer;
+namespace Launchsol\LaunchOMS\Observer;
 
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Framework\App\Config\ScopeConfigInterface;

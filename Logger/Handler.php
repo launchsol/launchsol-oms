@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Logger;
+namespace Launchsol\LaunchOMS\Logger;
 
 use Magento\Framework\Logger\Handler\Base;
 use Monolog\Logger as MonologLogger;

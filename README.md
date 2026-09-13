@@ -1,4 +1,4 @@
-# LaunchOms_OrderPush
+# Launchsol_LaunchOMS
 
 A Magento 2 module that pairs a Magento store with a LaunchOMS account and
 keeps them in sync in both directions:
@@ -43,7 +43,7 @@ automatically. No Magento Integration/admin token is ever needed.
 
 ```bash
 composer require launchsol/launchsol-oms
-bin/magento module:enable LaunchOms_OrderPush
+bin/magento module:enable Launchsol_LaunchOMS
 bin/magento setup:upgrade
 bin/magento setup:di:compile      # production mode only
 bin/magento cache:flush
@@ -52,9 +52,9 @@ bin/magento cache:flush
 **Or manually**, from your Magento root:
 
 ```bash
-mkdir -p app/code/LaunchOms/OrderPush
-cp -r /path/to/launchsol-oms/* app/code/LaunchOms/OrderPush/
-bin/magento module:enable LaunchOms_OrderPush
+mkdir -p app/code/Launchsol/LaunchOMS
+cp -r /path/to/launchsol-oms/* app/code/Launchsol/LaunchOMS/
+bin/magento module:enable Launchsol_LaunchOMS
 bin/magento setup:upgrade
 bin/magento setup:di:compile      # production mode only
 bin/magento cache:flush

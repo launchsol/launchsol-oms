@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Api\Data;
+namespace Launchsol\LaunchOMS\Api\Data;
 
 /**
  * Mirrors the {code, name, websiteCode, storeId} shape LaunchOMS's

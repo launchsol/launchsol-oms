@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Model\Data;
+namespace Launchsol\LaunchOMS\Model\Data;
 
-use LaunchOms\OrderPush\Api\Data\StoreViewInterface;
+use Launchsol\LaunchOMS\Api\Data\StoreViewInterface;
 use Magento\Framework\DataObject;
 
 class StoreView extends DataObject implements StoreViewInterface

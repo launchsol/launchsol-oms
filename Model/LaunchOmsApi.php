@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Model;
+namespace Launchsol\LaunchOMS\Model;
 
-use LaunchOms\OrderPush\Api\Data\StoreViewInterfaceFactory;
-use LaunchOms\OrderPush\Api\LaunchOmsInterface;
+use Launchsol\LaunchOMS\Api\Data\StoreViewInterfaceFactory;
+use Launchsol\LaunchOMS\Api\LaunchOmsInterface;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\InventoryApi\Api\Data\SourceItemInterfaceFactory;
 use Magento\InventoryApi\Api\SourceItemsSaveInterface;
@@ -31,7 +31,7 @@ class LaunchOmsApi implements LaunchOmsInterface
 
         $result = [];
         foreach ($this->storeManager->getStores() as $store) {
-            /** @var \LaunchOms\OrderPush\Model\Data\StoreView $view */
+            /** @var \Launchsol\LaunchOMS\Model\Data\StoreView $view */
             $view = $this->storeViewFactory->create();
             $view->setCode($store->getCode())
                 ->setName($store->getName())

@@ -8,19 +8,19 @@
         via ConnectionSecretValidator, before doing anything.
     -->
     <route url="/V1/launchoms/stores" method="GET">
-        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="getStores"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="getStores"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="/V1/launchoms/channel-map" method="POST">
-        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="setChannelMap"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="setChannelMap"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="/V1/launchoms/inventory" method="POST">
-        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="pushInventory"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="pushInventory"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>

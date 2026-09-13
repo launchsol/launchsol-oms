@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Api;
+namespace Launchsol\LaunchOMS\Api;
 
-use LaunchOms\OrderPush\Api\Data\ChannelMapEntryInterface;
-use LaunchOms\OrderPush\Api\Data\StoreViewInterface;
+use Launchsol\LaunchOMS\Api\Data\ChannelMapEntryInterface;
+use Launchsol\LaunchOMS\Api\Data\StoreViewInterface;
 
 /**
  * The LaunchOMS-facing half of the pairing flow -- everything under
@@ -13,7 +13,7 @@ use LaunchOms\OrderPush\Api\Data\StoreViewInterface;
  * (Magento's own OAuth/token auth doesn't apply to a third-party system
  * like LaunchOMS); every method instead validates the shared
  * connectionSecret from pairing against the X-LaunchOms-Secret header
- * itself -- see \LaunchOms\OrderPush\Model\ConnectionSecretValidator.
+ * itself -- see \Launchsol\LaunchOMS\Model\ConnectionSecretValidator.
  */
 interface LaunchOmsInterface
 {
@@ -21,7 +21,7 @@ interface LaunchOmsInterface
      * Store views this Magento instance has -- lets LaunchOMS's "Refresh
      * stores" pick up ones added after the initial pairing.
      *
-     * @return \LaunchOms\OrderPush\Api\Data\StoreViewInterface[]
+     * @return \Launchsol\LaunchOMS\Api\Data\StoreViewInterface[]
      */
     public function getStores(): array;
 
@@ -31,7 +31,7 @@ interface LaunchOmsInterface
      * Observer\PushOrderObserver.php already read, previously pasted in by
      * hand. Called once per LaunchOMS-side "Save" in the store picker.
      *
-     * @param \LaunchOms\OrderPush\Api\Data\ChannelMapEntryInterface[] $mappings
+     * @param \Launchsol\LaunchOMS\Api\Data\ChannelMapEntryInterface[] $mappings
      */
     public function setChannelMap(array $mappings): bool;
 

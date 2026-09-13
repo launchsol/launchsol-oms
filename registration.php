@@ -6,6 +6,6 @@ use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
-    'LaunchOms_OrderPush',
+    'Launchsol_LaunchOMS',
     __DIR__
 );

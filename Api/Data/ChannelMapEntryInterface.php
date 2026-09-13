@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Api\Data;
+namespace Launchsol\LaunchOMS\Api\Data;
 
 /**
  * One store view's LaunchOMS Channel mapping, pushed down after the

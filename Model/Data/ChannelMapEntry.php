@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LaunchOms\OrderPush\Model\Data;
+namespace Launchsol\LaunchOMS\Model\Data;
 
-use LaunchOms\OrderPush\Api\Data\ChannelMapEntryInterface;
+use Launchsol\LaunchOMS\Api\Data\ChannelMapEntryInterface;
 use Magento\Framework\DataObject;
 
 class ChannelMapEntry extends DataObject implements ChannelMapEntryInterface
