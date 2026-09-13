@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--
+        All three routes are `anonymous` because the caller is LaunchOMS,
+        not a Magento admin/customer, so Magento's own OAuth/token auth
+        doesn't apply. LaunchOmsApi.php validates the shared
+        connectionSecret from pairing (X-LaunchOms-Secret header) itself,
+        via ConnectionSecretValidator, before doing anything.
+    -->
+    <route url="/V1/launchoms/stores" method="GET">
+        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="getStores"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/launchoms/channel-map" method="POST">
+        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="setChannelMap"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/launchoms/inventory" method="POST">
+        <service class="LaunchOms\OrderPush\Api\LaunchOmsInterface" method="pushInventory"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</config>

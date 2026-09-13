@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--
+        Magento\Config\Model\Config::save() dispatches this after any save
+        of Stores > Configuration > Service > LaunchOMS Order Push, the
+        standard core hook modules use to react to "admin just saved this
+        config section" (e.g. payment methods verifying credentials on
+        save). Using it here means pairing is just "paste token, click Save
+        Config", no separate button/controller/ACL entry needed.
+    -->
+    <event name="admin_system_config_changed_section_launchoms_order_push">
+        <observer name="launchoms_orderpush_connect" instance="LaunchOms\OrderPush\Observer\ConnectObserver"/>
+    </event>
+</config>

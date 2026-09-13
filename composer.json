@@ -1,6 +1,6 @@
 {
-    "name": "launchoms/module-order-push",
-    "description": "Pushes newly placed Magento orders to a LaunchOMS webhook endpoint (POST /api/webhooks/magento/<channelId>/orders-create).",
+    "name": "launchsol/launchsol-oms",
+    "description": "Pairs a Magento store with LaunchOMS, pushes newly placed orders to LaunchOMS, and exposes a small token-authenticated API LaunchOMS uses to discover store views and push inventory back.",
     "type": "magento2-module",
     "license": "MIT",
     "require": {
@@ -8,7 +8,10 @@
         "magento/framework": "*",
         "magento/module-sales": "*",
         "magento/module-checkout": "*",
-        "magento/module-config": "*"
+        "magento/module-config": "*",
+        "magento/module-store": "*",
+        "magento/module-webapi": "*",
+        "magento/module-inventory-api": "*"
     },
     "autoload": {
         "files": [

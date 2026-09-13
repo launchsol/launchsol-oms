@@ -7,24 +7,18 @@
             <resource>LaunchOms_OrderPush::config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
-                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
+                    <comment>Whether this store view pushes orders to LaunchOMS. Set automatically when you enable this store from LaunchOMS's Marketplace &gt; Magento -- flip it off here to pause a store without changing anything on the LaunchOMS side.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="webhook_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Webhook URL</label>
-                    <comment><![CDATA[Full URL from the LaunchOMS side, e.g. https://your-launchoms-host/api/webhooks/magento/&lt;channelId&gt;/orders-create. Run <code>npm run configure:magento</code> in LaunchOMS to print the exact URL for this store's Channel.]]></comment>
-                    <depends>
-                        <field id="enabled">1</field>
-                    </depends>
+                <field id="launchoms_url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>LaunchOMS URL</label>
+                    <comment><![CDATA[Your LaunchOMS instance, e.g. https://app.launchoms.example -- shown alongside the connection token in LaunchOMS's Marketplace &gt; Magento &gt; "Connect a Magento store".]]></comment>
                 </field>
-                <field id="webhook_secret" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Webhook Secret</label>
-                    <comment>Must exactly match the MAGENTO_WEBHOOK_SECRET value configured on the LaunchOMS side for this channel.</comment>
-                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
-                    <depends>
-                        <field id="enabled">1</field>
-                    </depends>
+                <field id="connection_token" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Connection Token</label>
+                    <comment><![CDATA[One-time token from LaunchOMS's Marketplace &gt; Magento &gt; "Connect a Magento store". Paste it here and click Save Config -- this store pairs with your LaunchOMS account automatically (store list, webhook URL/secret, and inventory sync all get set up with no further manual config). The token is single-use and expires after 15 minutes; it's cleared here once used.]]></comment>
                 </field>
                 <field id="timeout" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Request timeout (seconds)</label>

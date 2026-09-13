@@ -1,14 +1,19 @@
 # LaunchOms_OrderPush
 
-A Magento 2 module that pushes every newly placed order to a LaunchOMS
-webhook endpoint (`POST /api/webhooks/magento/<channelId>/orders-create`).
-It's the missing half of `src/lib/channels/magento.real.ts` on the LaunchOMS
-side, which already handles the *outbound* direction (pushing stock levels
-to Magento) -- this module handles *inbound* (pushing orders to LaunchOMS).
+A Magento 2 module that pairs a Magento store with a LaunchOMS account and
+keeps them in sync in both directions:
 
-Magento has no built-in outbound webhook subscription mechanism (unlike
-Shopify), so this exists to fill that gap with a small, focused module
-rather than requiring custom middleware.
+- **Inbound**: pushes every newly placed order to LaunchOMS's webhook
+  endpoint (`POST /api/webhooks/magento/<channelId>/orders-create`).
+- **Outbound**: exposes a small token-authenticated API
+  (`GET/POST /rest/V1/launchoms/*`) that LaunchOMS calls to discover store
+  views and push inventory quantities back -- see
+  `src/lib/channels/magento.real.ts` on the LaunchOMS side.
+
+The only manual step is pasting a one-time connection token from LaunchOMS
+into this module's config and saving -- from there, store discovery,
+per-store webhook URL/secret, and inventory sync are all provisioned
+automatically. No Magento Integration/admin token is ever needed.
 
 ## What it does
 
@@ -19,70 +24,100 @@ rather than requiring custom middleware.
   (`entity_id`, `increment_id`, `grand_total`, `items[]`,
   `extension_attributes.shipping_assignments[0].shipping.address`) -- see
   `Observer/PushOrderObserver.php::buildPayload()`.
-- POSTs it to the configured Webhook URL with the shared secret in the
-  `X-Magento-Webhook-Secret` header.
-- Never blocks or fails checkout: every failure (network error, timeout,
-  non-2xx response, malformed order) is caught and logged to
-  `var/log/launchoms_order_push.log`, never rethrown. The LaunchOMS webhook
-  is idempotent per `increment_id`, so replaying a failed push is always
-  safe.
+- POSTs it to this store's configured Webhook URL with a shared secret in
+  the `X-Magento-Webhook-Secret` header. Never blocks or fails checkout:
+  every failure (network error, timeout, non-2xx response, malformed
+  order) is caught and logged to `var/log/launchoms_order_push.log`, never
+  rethrown. The LaunchOMS webhook is idempotent per `increment_id`, so
+  replaying a failed push is always safe.
+- Exposes `GET /V1/launchoms/stores`, `POST /V1/launchoms/channel-map`, and
+  `POST /V1/launchoms/inventory` (see `Api/LaunchOmsInterface.php` /
+  `Model/LaunchOmsApi.php`), each authenticated by comparing the shared
+  `connectionSecret` from pairing against an `X-LaunchOms-Secret` header
+  (`Model/ConnectionSecretValidator.php`) rather than Magento's own
+  admin/OAuth auth, since the caller is LaunchOMS, not a Magento user.
 
 ## Install
 
-From your Magento root:
+**Via Composer** (once published on Packagist -- see "Publishing" below):
 
 ```bash
-mkdir -p app/code/LaunchOms/OrderPush
-cp -r /path/to/launchoms/magento-module/* app/code/LaunchOms/OrderPush/
+composer require launchsol/launchsol-oms
 bin/magento module:enable LaunchOms_OrderPush
 bin/magento setup:upgrade
 bin/magento setup:di:compile      # production mode only
 bin/magento cache:flush
 ```
 
-(Or require it via a private Composer repository pointing at this
-directory instead of copying files -- `composer.json` is already set up as
-a `magento2-module` package.)
+**Or manually**, from your Magento root:
 
-## Configure
+```bash
+mkdir -p app/code/LaunchOms/OrderPush
+cp -r /path/to/launchsol-oms/* app/code/LaunchOms/OrderPush/
+bin/magento module:enable LaunchOms_OrderPush
+bin/magento setup:upgrade
+bin/magento setup:di:compile      # production mode only
+bin/magento cache:flush
+```
 
-1. On the **LaunchOMS** side, set env vars and run the configure script to
-   create/update the `magento` Channel row and get the exact webhook URL:
+### Publishing (for maintainers)
 
-   ```bash
-   export MAGENTO_WEBHOOK_SECRET="choose-a-random-secret"
-   npm run configure:magento
-   ```
+The package name in `composer.json` (`launchsol/launchsol-oms`) matches
+this GitHub repo (`launchsol/launchsol-oms`), which is public, so
+`composer require launchsol/launchsol-oms` works from *any* Magento
+project with no extra `repositories` config, once the package is
+registered on [Packagist](https://packagist.org/packages/submit) (one-time,
+requires a Packagist account linked to this GitHub org -- Packagist then
+auto-updates on every push via its GitHub webhook). Until then, a
+consumer needs a `vcs` repository entry pointing at this repo's URL
+instead.
 
-   It prints something like:
+Cut a release by tagging a commit (`git tag v1.1.0 && git push --tags`) --
+Packagist and Composer resolve installable versions from tags, not
+branches.
 
-   ```
-   https://your-launchoms-host/api/webhooks/magento/cmXXXXXXXXXXXX/orders-create
-   ```
+## Connect
 
+1. In **LaunchOMS**: Marketplace > Magento > **Connect a Magento store**.
+   This shows your LaunchOMS URL and a one-time connection token (valid
+   15 minutes).
 2. In the **Magento admin**: Stores > Configuration > Service > LaunchOMS
    Order Push.
-   - **Enabled**: Yes
-   - **Webhook URL**: the exact URL printed above
-   - **Webhook Secret**: the same value as `MAGENTO_WEBHOOK_SECRET`
-   - **Request timeout**: 5 (default is fine for most setups)
+   - **LaunchOMS URL**: paste the URL shown in LaunchOMS.
+   - **Connection Token**: paste the token shown in LaunchOMS.
+3. Click **Save Config**. On success you'll see a "Connected to LaunchOMS"
+   message, and the token field clears itself (it's single-use). Behind
+   the scenes, this store's full list of store views was sent to LaunchOMS
+   and a long-lived secret was stored here for the two API directions
+   above -- see `Observer/ConnectObserver.php`.
+4. Back in **LaunchOMS**: the connected instance now appears under
+   Marketplace > Magento with its store views listed. Check the ones you
+   want to sync, give each a channel name, and **Save**. LaunchOMS creates
+   one Channel per enabled store and pushes each one's webhook URL/secret
+   back into this module automatically -- **Enabled**, **Webhook URL**,
+   and **Webhook Secret** in Magento's config will already be filled in
+   per store, nothing left to copy by hand.
+5. Place a test order in an enabled store and check `/channel-health` on
+   the LaunchOMS side, or tail `var/log/launchoms_order_push.log` here, to
+   confirm the push succeeded.
 
-3. Save config, then `bin/magento cache:flush`.
+If a store view is added in Magento later, use "Refresh stores" next to
+the connection in LaunchOMS's Marketplace to pick it up without re-pairing.
 
-4. Place a test order and check
-   `/channel-health` on the LaunchOMS side, or tail
-   `var/log/launchoms_order_push.log` on the Magento side, to confirm the
-   push succeeded.
+### Legacy manual setup
 
-## Multi-store / multi-account
-
-Every config field is store-scoped (`showInStore="1"`), so a Magento
-instance running multiple stores/websites can point each one at a
-different LaunchOMS channelId -- useful if different stores belong to
-different LaunchOMS accounts (tenants).
+The old fully-manual path (LaunchOMS's `scripts/configure-magento.ts` +
+hand-pasted Webhook URL/Secret/access token) still works for existing
+installs and isn't required to change -- it's just no longer how a new
+connection gets set up.
 
 ## Keeping the payload shape in sync
 
 If `src/lib/validation/magento.schema.ts` on the LaunchOMS side ever
 changes, update `PushOrderObserver::buildPayload()` to match -- there's a
-comment at each end pointing at the other.
+comment at each end pointing at the other. Likewise, LaunchOMS's webapi
+framework converts Data Interface fields to snake_case on the wire
+(`getWebsiteCode()` -> `website_code`); the LaunchOMS-side callers already
+account for this (see comments in `src/lib/channels/magentoConnect.ts` and
+the `connections/[id]` API routes) -- keep both ends in sync if a field is
+renamed on either side.

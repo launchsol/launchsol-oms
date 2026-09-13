@@ -15,4 +15,19 @@
             <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
         </arguments>
     </type>
+    <type name="LaunchOms\OrderPush\Observer\ConnectObserver">
+        <arguments>
+            <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
+        </arguments>
+    </type>
+    <type name="LaunchOms\OrderPush\Model\LaunchOmsApi">
+        <arguments>
+            <argument name="logger" xsi:type="object">LaunchOms\OrderPush\Logger\Logger</argument>
+        </arguments>
+    </type>
+
+    <!-- Pairing/store-picker API (etc/webapi.xml), see Api/LaunchOmsInterface.php. -->
+    <preference for="LaunchOms\OrderPush\Api\LaunchOmsInterface" type="LaunchOms\OrderPush\Model\LaunchOmsApi"/>
+    <preference for="LaunchOms\OrderPush\Api\Data\StoreViewInterface" type="LaunchOms\OrderPush\Model\Data\StoreView"/>
+    <preference for="LaunchOms\OrderPush\Api\Data\ChannelMapEntryInterface" type="LaunchOms\OrderPush\Model\Data\ChannelMapEntry"/>
 </config>
