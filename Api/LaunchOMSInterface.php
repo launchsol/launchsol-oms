@@ -32,6 +32,7 @@ interface LaunchOMSInterface
      * hand. Called once per LaunchOMS-side "Save" in the store picker.
      *
      * @param \Launchsol\LaunchOMS\Api\Data\ChannelMapEntryInterface[] $mappings
+     * @return bool
      */
     public function setChannelMap(array $mappings): bool;
 
@@ -39,6 +40,11 @@ interface LaunchOMSInterface
      * Writes one SKU's available quantity at a source, via core MSI --
      * the seamless replacement for LaunchOMS calling Magento's own
      * admin-token-gated POST /V1/inventory/source-items directly.
+     *
+     * @param string $sku
+     * @param string $sourceCode
+     * @param int $quantity
+     * @return bool
      */
     public function pushInventory(string $sku, string $sourceCode, int $quantity): bool;
 }

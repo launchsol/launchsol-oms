@@ -12,23 +12,58 @@ namespace Launchsol\LaunchOMS\Api\Data;
  */
 interface ChannelMapEntryInterface
 {
+    /**
+     * @return string
+     */
     public function getStoreCode(): string;
 
+    /**
+     * @param string $storeCode
+     * @return $this
+     */
     public function setStoreCode(string $storeCode): self;
 
+    /**
+     * @return string
+     */
     public function getChannelId(): string;
 
+    /**
+     * @param string $channelId
+     * @return $this
+     */
     public function setChannelId(string $channelId): self;
 
+    /**
+     * @return bool
+     */
     public function getEnabled(): bool;
 
+    /**
+     * @param bool $enabled
+     * @return $this
+     */
     public function setEnabled(bool $enabled): self;
 
+    /**
+     * @return string
+     */
     public function getWebhookUrl(): string;
 
+    /**
+     * @param string $webhookUrl
+     * @return $this
+     */
     public function setWebhookUrl(string $webhookUrl): self;
 
+    /**
+     * @return string
+     */
     public function getWebhookSecret(): string;
 
+    /**
+     * @param string $webhookSecret
+     * @return $this
+     */
     public function setWebhookSecret(string $webhookSecret): self;
 }
