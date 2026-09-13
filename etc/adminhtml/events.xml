@@ -8,7 +8,7 @@
         save). Using it here means pairing is just "paste token, click Save
         Config", no separate button/controller/ACL entry needed.
     -->
-    <event name="admin_system_config_changed_section_launchoms_order_push">
-        <observer name="launchoms_orderpush_connect" instance="Launchsol\LaunchOMS\Observer\ConnectObserver"/>
+    <event name="admin_system_config_changed_section_launchsol_launchoms">
+        <observer name="launchsol_launchoms_connect" instance="Launchsol\LaunchOMS\Observer\ConnectObserver"/>
     </event>
 </config>

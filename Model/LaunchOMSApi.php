@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Launchsol\LaunchOMS\Model;
 
 use Launchsol\LaunchOMS\Api\Data\StoreViewInterfaceFactory;
-use Launchsol\LaunchOMS\Api\LaunchOmsInterface;
+use Launchsol\LaunchOMS\Api\LaunchOMSInterface;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\InventoryApi\Api\Data\SourceItemInterfaceFactory;
 use Magento\InventoryApi\Api\SourceItemsSaveInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 
-class LaunchOmsApi implements LaunchOmsInterface
+class LaunchOMSApi implements LaunchOMSInterface
 {
     public function __construct(
         private readonly ConnectionSecretValidator $secretValidator,
@@ -58,19 +58,19 @@ class LaunchOmsApi implements LaunchOmsInterface
             }
 
             $this->configResource->saveConfig(
-                'launchoms_order_push/general/enabled',
+                'launchsol_launchoms/general/enabled',
                 $entry->getEnabled() ? '1' : '0',
                 'stores',
                 $storeId
             );
             $this->configResource->saveConfig(
-                'launchoms_order_push/general/webhook_url',
+                'launchsol_launchoms/general/webhook_url',
                 $entry->getWebhookUrl(),
                 'stores',
                 $storeId
             );
             $this->configResource->saveConfig(
-                'launchoms_order_push/general/webhook_secret',
+                'launchsol_launchoms/general/webhook_secret',
                 $entry->getWebhookSecret(),
                 'stores',
                 $storeId

@@ -14,10 +14,10 @@ use Magento\Store\Model\ScopeInterface;
  */
 class Config
 {
-    private const XML_PATH_ENABLED = 'launchoms_order_push/general/enabled';
-    private const XML_PATH_WEBHOOK_URL = 'launchoms_order_push/general/webhook_url';
-    private const XML_PATH_WEBHOOK_SECRET = 'launchoms_order_push/general/webhook_secret';
-    private const XML_PATH_TIMEOUT = 'launchoms_order_push/general/timeout';
+    private const XML_PATH_ENABLED = 'launchsol_launchoms/general/enabled';
+    private const XML_PATH_WEBHOOK_URL = 'launchsol_launchoms/general/webhook_url';
+    private const XML_PATH_WEBHOOK_SECRET = 'launchsol_launchoms/general/webhook_secret';
+    private const XML_PATH_TIMEOUT = 'launchsol_launchoms/general/timeout';
 
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig

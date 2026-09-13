@@ -3,24 +3,24 @@
     <!--
         All three routes are `anonymous` because the caller is LaunchOMS,
         not a Magento admin/customer, so Magento's own OAuth/token auth
-        doesn't apply. LaunchOmsApi.php validates the shared
-        connectionSecret from pairing (X-LaunchOms-Secret header) itself,
+        doesn't apply. LaunchOMSApi.php validates the shared
+        connectionSecret from pairing (X-LaunchOMS-Secret header) itself,
         via ConnectionSecretValidator, before doing anything.
     -->
     <route url="/V1/launchoms/stores" method="GET">
-        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="getStores"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOMSInterface" method="getStores"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="/V1/launchoms/channel-map" method="POST">
-        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="setChannelMap"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOMSInterface" method="setChannelMap"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="/V1/launchoms/inventory" method="POST">
-        <service class="Launchsol\LaunchOMS\Api\LaunchOmsInterface" method="pushInventory"/>
+        <service class="Launchsol\LaunchOMS\Api\LaunchOMSInterface" method="pushInventory"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>

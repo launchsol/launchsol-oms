@@ -18,7 +18,7 @@ use Psr\Log\LoggerInterface;
  * src/lib/validation/magento.schema.ts on the LaunchOMS side).
  *
  * Never blocks or fails checkout: every failure mode here is caught and
- * logged (var/log/launchoms_order_push.log), never rethrown -- a customer's
+ * logged (var/log/launchsol_launchoms.log), never rethrown -- a customer's
  * order must always complete even if LaunchOMS is unreachable. The webhook
  * endpoint is idempotent (keyed on increment_id per channel), so replaying
  * a failed push from the log is always safe and won't create a duplicate

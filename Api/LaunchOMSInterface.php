@@ -12,10 +12,10 @@ use Launchsol\LaunchOMS\Api\Data\StoreViewInterface;
  * /rest/V1/launchoms/*. Declared `resources: anonymous` in webapi.xml
  * (Magento's own OAuth/token auth doesn't apply to a third-party system
  * like LaunchOMS); every method instead validates the shared
- * connectionSecret from pairing against the X-LaunchOms-Secret header
+ * connectionSecret from pairing against the X-LaunchOMS-Secret header
  * itself -- see \Launchsol\LaunchOMS\Model\ConnectionSecretValidator.
  */
-interface LaunchOmsInterface
+interface LaunchOMSInterface
 {
     /**
      * Store views this Magento instance has -- lets LaunchOMS's "Refresh

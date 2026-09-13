@@ -27,13 +27,13 @@ automatically. No Magento Integration/admin token is ever needed.
 - POSTs it to this store's configured Webhook URL with a shared secret in
   the `X-Magento-Webhook-Secret` header. Never blocks or fails checkout:
   every failure (network error, timeout, non-2xx response, malformed
-  order) is caught and logged to `var/log/launchoms_order_push.log`, never
+  order) is caught and logged to `var/log/launchsol_launchoms.log`, never
   rethrown. The LaunchOMS webhook is idempotent per `increment_id`, so
   replaying a failed push is always safe.
 - Exposes `GET /V1/launchoms/stores`, `POST /V1/launchoms/channel-map`, and
-  `POST /V1/launchoms/inventory` (see `Api/LaunchOmsInterface.php` /
-  `Model/LaunchOmsApi.php`), each authenticated by comparing the shared
-  `connectionSecret` from pairing against an `X-LaunchOms-Secret` header
+  `POST /V1/launchoms/inventory` (see `Api/LaunchOMSInterface.php` /
+  `Model/LaunchOMSApi.php`), each authenticated by comparing the shared
+  `connectionSecret` from pairing against an `X-LaunchOMS-Secret` header
   (`Model/ConnectionSecretValidator.php`) rather than Magento's own
   admin/OAuth auth, since the caller is LaunchOMS, not a Magento user.
 
@@ -98,7 +98,7 @@ branches.
    and **Webhook Secret** in Magento's config will already be filled in
    per store, nothing left to copy by hand.
 5. Place a test order in an enabled store and check `/channel-health` on
-   the LaunchOMS side, or tail `var/log/launchoms_order_push.log` here, to
+   the LaunchOMS side, or tail `var/log/launchsol_launchoms.log` here, to
    confirm the push succeeded.
 
 If a store view is added in Magento later, use "Refresh stores" next to

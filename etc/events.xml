@@ -8,6 +8,6 @@
         we actually want: "a new order was just placed".
     -->
     <event name="checkout_submit_all_after">
-        <observer name="launchoms_orderpush_push_order" instance="Launchsol\LaunchOMS\Observer\PushOrderObserver"/>
+        <observer name="launchsol_launchoms_push_order" instance="Launchsol\LaunchOMS\Observer\PushOrderObserver"/>
     </event>
 </config>

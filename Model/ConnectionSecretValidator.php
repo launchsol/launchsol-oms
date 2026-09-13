@@ -12,16 +12,16 @@ use Magento\Framework\Webapi\Rest\Request;
 /**
  * All /V1/launchoms/* routes are declared `resources: anonymous` in
  * webapi.xml -- Magento's own OAuth/token admin auth doesn't apply to a
- * third-party system like LaunchOMS. Each LaunchOmsApi method calls
+ * third-party system like LaunchOMS. Each LaunchOMSApi method calls
  * assertValid() first instead, checking the shared connectionSecret minted
- * during pairing (see ConnectObserver.php) against the X-LaunchOms-Secret
+ * during pairing (see ConnectObserver.php) against the X-LaunchOMS-Secret
  * header, constant-time via hash_equals() -- the same shared-secret idea
  * PushOrderObserver's own webhook_secret uses, just in the other direction.
  */
 class ConnectionSecretValidator
 {
-    private const XML_PATH_CONNECTION_SECRET = 'launchoms_order_push/general/connection_secret';
-    private const HEADER = 'X-LaunchOms-Secret';
+    private const XML_PATH_CONNECTION_SECRET = 'launchsol_launchoms/general/connection_secret';
+    private const HEADER = 'X-LaunchOMS-Secret';
 
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig,

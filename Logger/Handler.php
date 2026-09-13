@@ -17,5 +17,5 @@ class Handler extends Base
     /**
      * @var string
      */
-    protected $fileName = '/var/log/launchoms_order_push.log';
+    protected $fileName = '/var/log/launchsol_launchoms.log';
 }

@@ -22,15 +22,15 @@ use Psr\Log\LoggerInterface;
  * magento/register/route.ts and src/app/(dashboard)/marketplace/
  * _components/MagentoConnectionCard.tsx (which mints the token) on the
  * LaunchOMS side. On success, stores the returned connectionId/
- * connectionSecret (used later by LaunchOmsApi.php for the inbound
+ * connectionSecret (used later by LaunchOMSApi.php for the inbound
  * webapi routes) and clears the one-time token.
  */
 class ConnectObserver implements ObserverInterface
 {
-    private const XML_PATH_LAUNCHOMS_URL = 'launchoms_order_push/general/launchoms_url';
-    private const XML_PATH_CONNECTION_TOKEN = 'launchoms_order_push/general/connection_token';
-    private const XML_PATH_CONNECTION_ID = 'launchoms_order_push/general/connection_id';
-    private const XML_PATH_CONNECTION_SECRET = 'launchoms_order_push/general/connection_secret';
+    private const XML_PATH_LAUNCHOMS_URL = 'launchsol_launchoms/general/launchoms_url';
+    private const XML_PATH_CONNECTION_TOKEN = 'launchsol_launchoms/general/connection_token';
+    private const XML_PATH_CONNECTION_ID = 'launchsol_launchoms/general/connection_id';
+    private const XML_PATH_CONNECTION_SECRET = 'launchsol_launchoms/general/connection_secret';
 
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig,
